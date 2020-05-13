@@ -125,15 +125,15 @@ exports.articleById = function (req, res) {
     var urlArray = url.split("/");
 
     conn.query('SELECT * FROM tb_article WHERE article_id  = ?',
-    [urlArray[2]]
-    , function (error, rows, fields) {
-        if (error) {
-            console.log(error)
-        } else {
-            res.json(rows)
-            res.end()
-        }
-    });
+        [urlArray[2]]
+        , function (error, rows, fields) {
+            if (error) {
+                console.log(error)
+            } else {
+                res.json(rows)
+                res.end()
+            }
+        });
 
 };
 
@@ -147,10 +147,10 @@ exports.createArticle = function (req, res) {
         var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth();
+        var yyyy = today.getFullYear();
 
         var Month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
 
-        var yyyy = today.getFullYear();
         if (dd < 10) {
             dd = '0' + dd;
         }
@@ -158,50 +158,30 @@ exports.createArticle = function (req, res) {
         var dateTimeStamp = Month[mm] + ' ' + dd.toString();
         // var dateTimeStamp =  mm.toString() + '-' + dd.toString() + '-' + yyyy.toString();
 
-        var title = req.body.title
-        var article_image = req.file.filename
-        var date = dateTimeStamp
-        var description = req.body.description
-        var category = req.body.category === undefined ? "daily" : req.body.category
+        if (req.file !== undefined) {
 
-        conn.query('INSERT INTO tb_article (image,title,date,description,category) VALUES (?,?,?,?,?)',
-            [article_image, title, date, description, category]
-            , function (error, rows, fields) {
+            var title = req.body.title
+            var article_image = req.file.filename
+            var date = dateTimeStamp
+            var description = req.body.description
+            var category = req.body.category === undefined ? "daily" : req.body.category
 
-                if (error) response.err("Failed create article " + error, res)
+            conn.query('INSERT INTO tb_article (image,title,date,description,category) VALUES (?,?,?,?,?)',
+                [article_image, title, date, description, category]
+                , function (error, rows, fields) {
 
-                if (rows.affectedRows && rows.insertId) {
+                    if (error) response.err("Failed create article " + error, res)
 
-                    response.ok("Success create article", res)
-                }
+                    if (rows.affectedRows && rows.insertId) {
 
-            })
+                        response.ok("Success create article", res)
+                    }
 
-        // var owner_id = req.body.owner_id
-        // var profileimage = req.file.filename
-        // var title = req.body.title
-        // var description = req.body.description
-        // var requirement = req.body.requirement
-        // var deadline = req.body.deadline
-        // var budget = req.body.budget
-        // var salary = req.body.salary
-        // var additional_files = req.body.additional_files
-        // var categories = req.body.categories
-        // var location = req.body.location
+                })
 
-        // conn.query('INSERT INTO tb_job (`owner_id`, `status`, `jobimage`, `title`, `description`, `requirement`, `deadline`, `budget`, `salary`, `additional_files`, `categories`, `location`, `date`, `freelancers_binding`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
-        //     [owner_id,1,profileimage,title,description,requirement,deadline,budget,salary,additional_files,categories,location,date,0]
-        // ,function (error, rows, fields){
-
-        //     if ( error ) response.err("Failed create job " + error, res)
-
-        //     if ( rows.affectedRows && rows.insertId ) {
-
-        //         response.ok("Success create new job",res)
-        //     }
-
-
-        // })
+        } else {
+            response.err("Please add some article image ", res)
+        }
 
     })
 }
