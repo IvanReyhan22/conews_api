@@ -117,6 +117,27 @@ exports.article = function (req, res) {
 };
 
 /**
+ * GET SPESIFIC ARTICLE BY ID
+ */
+exports.articleById = function (req, res) {
+
+    var url = req.url;
+    var urlArray = url.split("/");
+
+    conn.query('SELECT * FROM tb_article WHERE article_id  = ?',
+    [urlArray[2]]
+    , function (error, rows, fields) {
+        if (error) {
+            console.log(error)
+        } else {
+            res.json(rows)
+            res.end()
+        }
+    });
+
+};
+
+/**
  * create Article
  */
 exports.createArticle = function (req, res) {
@@ -127,7 +148,7 @@ exports.createArticle = function (req, res) {
         var dd = today.getDate();
         var mm = today.getMonth();
 
-        var Month = ["Januari", "Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"]
+        var Month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
 
         var yyyy = today.getFullYear();
         if (dd < 10) {
@@ -144,7 +165,7 @@ exports.createArticle = function (req, res) {
         var category = req.body.category === undefined ? "daily" : req.body.category
 
         conn.query('INSERT INTO tb_article (image,title,date,description,category) VALUES (?,?,?,?,?)',
-            [article_image,title,date,description,category]
+            [article_image, title, date, description, category]
             , function (error, rows, fields) {
 
                 if (error) response.err("Failed create article " + error, res)
