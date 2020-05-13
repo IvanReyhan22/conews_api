@@ -3,9 +3,9 @@ var mysql = require('mysql');
 var database = "conews"
 
 var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
+    host: "www.db4free.net",
+    user: "conews",
+    password: "conews1234567890",
     database: database
 });
 

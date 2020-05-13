@@ -4,8 +4,20 @@
   "description": "conews app api",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
+  "engines": {
+    "node": "10.11.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IvanReyhan22/conews_api"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
   "author": "ahmad ivan reyhan",
   "license": "ISC",
   "dependencies": {
