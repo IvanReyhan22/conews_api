@@ -56,4 +56,4 @@ handleDisconnect()
 //     else console.log("Database Status : Connected\nDatabase Name : " + database)
 // });
 
-module.exports = con;
+module.exports = connection;
