@@ -37,11 +37,12 @@ function handleDisconnect() {
 
         if (err.code === 'PROTOCOL_CONNECTION_LOST') {
 
-            handleDisconnect();
+            setTimeout(handleDisconnect, 2000)
 
         } else {
 
-            throw err;
+            console.log("db error ",err)
+            setTimeout(handleDisconnect, 2000)
 
         }
 
