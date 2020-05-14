@@ -122,44 +122,39 @@ exports.user = function (req, res) {
 
     conn.getConnection(function (err, conn) {
 
-        conn.query('SELECT * FROM tb_user', function (error, rows, fields) {
-            if (error) {
-                console.log(error)
-            } else {
-                res.json(rows)
-                res.end()
-            }
+        var userId = req.body.user_id
 
-            conn.release()
+        if (userId !== undefined) {
 
-        });
+            conn.query("SELECT * FROM tb_user WHERE user_id = ?",
+                [userId]
+                , function (error, rows, fields) {
+                    if (error) {
+                        console.log(error)
+                    } else {
+                        res.json(rows[0])
+                        res.end()
+                    }
 
-    })
-};
+                    conn.release()
 
-/**
- * get User by Id
- */
-exports.userId = function (req, res) {
+                });
 
-    var url = req.url;
-    var urlArray = url.split("/");
+        } else {
 
-    conn.getConnection(function (err, conn) {
+            conn.query("SELECT * FROM tb_user", function (error, rows, fields) {
+                if (error) {
+                    console.log(error)
+                } else {
+                    res.json(rows)
+                    res.end()
+                }
 
-        conn.query('SELECT * FROM tb_user where user_id', 
-        [urlArray[2]]
-        ,function (error, rows, fields) {
-            if (error) {
-                console.log(error)
-            } else {
-                res.json(rows[0])
-                res.end()
-            }
+                conn.release()
 
-            conn.release()
+            });
 
-        });
+        }
 
     })
 };
@@ -172,47 +167,40 @@ exports.article = function (req, res) {
 
     conn.getConnection(function (err, conn) {
 
-        conn.query('SELECT * FROM tb_article', function (error, rows, fields) {
-            if (error) {
-                console.log(error)
-            } else {
-                res.json(rows)
-                res.end()
-            }
+        var articleId = req.body.article_id
 
-            conn.release()
+        if (articleId !== undefined) {
 
-        });
-
-    })
-};
-
-/**
- * GET SPESIFIC ARTICLE BY ID
- */
-exports.articleById = function (req, res) {
-
-    var url = req.url;
-    var urlArray = url.split("/");
-
-    conn.getConnection(function (err, conn) {
-
-        conn.query('SELECT * FROM tb_article WHERE article_id  = ?',
-            [urlArray[2]]
-            , function (error, rows, fields) {
+            conn.query('SELECT * FROM tb_article WHERE article_id = ?',
+            [articleId]
+            ,function (error, rows, fields) {
                 if (error) {
                     console.log(error)
                 } else {
                     res.json(rows[0])
                     res.end()
                 }
-                
                 conn.release()
 
             });
 
-    })
+        } else {
 
+            conn.query('SELECT * FROM tb_article', function (error, rows, fields) {
+                if (error) {
+                    console.log(error)
+                } else {
+                    res.json(rows)
+                    res.end()
+                }
+
+                conn.release()
+
+            });
+
+        }
+
+    })
 };
 
 /**
