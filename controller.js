@@ -35,7 +35,7 @@ exports.createUser = function (req, res) {
     conn.query('SELECT * FROM tb_user WHERE email = ? OR username = ?',
         [email, username]
         , function (error, rows, fields) {
-            if (error) throw response.err("Request timed out / No internet access")
+            if (error) throw response.err("Request timed out / No internet access",error)
 
             if (rows.length == 0) {
 
@@ -43,13 +43,13 @@ exports.createUser = function (req, res) {
                     [username, email, password, phone]
                     , function (error, rows, fields) {
 
-                        if (error) throw response.err("Connection timed out / no Internet connection", res);
+                        if (error) throw response.err("Connection timed out / no Internet connection " + error, res);
 
                         conn.query('SELECT * FROM tb_user WHERE user_id = ?',
                             [rows.insertId]
                             , function (error, rows, fields) {
 
-                                if (error) throw response.err("Connection timed out / no Internet connection", res)
+                                if (error) throw response.err("Connection timed out / no Internet connection " + error, res)
 
                                 if (rows) {
 

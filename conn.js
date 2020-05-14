@@ -20,7 +20,8 @@ var connection;
 
 function handleDisconnect() {
 
-    connection = mysql.createConnection(db_config);
+    // connection = mysql.createConnection(db_config);
+    connection = mysql.createPool(db_config);
 
     connection.connect(function (err) {
 
