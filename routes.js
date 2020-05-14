@@ -11,7 +11,7 @@ module.exports = function (app) {
     app.route('/users')
         .get(conews.user);
     app.route('/userById')
-        .get(conews.user);
+        .post(conews.user);
     app.route('/register')
         .post(conews.createUser);
     app.route('/login')
@@ -21,7 +21,7 @@ module.exports = function (app) {
     app.route('/article')
         .get(conews.article);
     app.route('/articleById')
-        .get(conews.article);
+        .post(conews.article);
     app.route('/article/create')
         .post(conews.createArticle);
 };
