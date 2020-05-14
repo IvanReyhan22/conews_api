@@ -7,7 +7,11 @@ module.exports = function (app) {
     app.route('/')
         .get(conews.index);
 
-    // AUTH
+    // User
+    app.route('/users')
+        .get(conews.user);
+    app.route('/user/:user_id')
+        .get(conews.userId);
     app.route('/register')
         .post(conews.createUser);
     app.route('/login')
