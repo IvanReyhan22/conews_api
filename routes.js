@@ -10,6 +10,8 @@ module.exports = function (app) {
     // User
     app.route('/users')
         .get(conews.user);
+    app.route('/userById')
+        .get(conews.user);
     app.route('/register')
         .post(conews.createUser);
     app.route('/login')
@@ -17,6 +19,8 @@ module.exports = function (app) {
 
     // Article
     app.route('/article')
+        .get(conews.article);
+    app.route('/articleById')
         .get(conews.article);
     app.route('/article/create')
         .post(conews.createArticle);
