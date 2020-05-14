@@ -83,6 +83,7 @@ exports.loginUser = function (req, res) {
     conn.query('SELECT * FROM tb_user WHERE email = ?',
         [eml]
         , function (error, rows, fields) {
+
             if (error) return response.err("Request Timed Out / No Internet Access " +error, res)
 
             if (rows.length != 0) {
