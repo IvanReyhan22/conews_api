@@ -68,6 +68,8 @@ exports.createUser = function (req, res) {
 
             }
 
+            conn.release()
+
         })
 
 };
@@ -98,6 +100,8 @@ exports.loginUser = function (req, res) {
             } else {
                 response.err("User not registered", res)
             }
+
+            conn.release()
         });
 
 }
@@ -114,6 +118,8 @@ exports.article = function (req, res) {
             res.json(rows)
             res.end()
         }
+
+        conn.release()
     });
 };
 
@@ -134,6 +140,8 @@ exports.articleById = function (req, res) {
                 res.json(rows)
                 res.end()
             }
+
+            conn.release()
         });
 
 };
@@ -177,6 +185,8 @@ exports.createArticle = function (req, res) {
 
                         response.ok("Success create article", res)
                     }
+
+                    conn.release()
 
                 })
 
