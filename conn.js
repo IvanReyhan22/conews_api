@@ -9,47 +9,44 @@ var db_config = {
     database: database
 }
 
-// var con = mysql.createConnection({
-//     host: "remotemysql.com",
-//     user: "w2NUkoaNPK",
-//     password: "20mBA2bR4T",
-//     database: database
-// });
+var connection = mysql.createPool(db_config)
 
-var connection;
+// var connection;
 
-function handleDisconnect() {
+// function handleDisconnect() {
 
-    connection = mysql.createConnection(db_config);
+//     connection = mysql.createConnection(db_config);
 
-    connection.connect(function (err) {
+//     connection.connect(function (err) {
 
-        if (err) {
-            console.log('error when connecting to database: ', err)
-            setTimeout(handleDisconnect, 3000)
-        }
+//         if (err) {
+//             console.log('error when connecting to database: ', err)
+//             setTimeout(handleDisconnect, 3000)
+//         }
 
-    })
+//     })
 
-    connection.on('error', function (err) {
+//     connection.on('error', function (err) {
 
-        console.log('db error ' + err);
+//         console.log('db error ' + err);
 
-        if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+//         if (err.code === 'PROTOCOL_CONNECTION_LOST') {
 
-            console.log("reconnection to db....")
-            handleDisconnect();
+//             console.log("reconnection to db....")
+//             handleDisconnect();
 
-        } else {
+//         } else {
 
-            throw err;
+//             throw err;
 
-        }
+//         }
 
-    });
+//     });
 
-}
+//     connection.end()
 
-handleDisconnect()
+// }
 
-module.exports = connection;
+// handleDisconnect()
+
+module.exports = connection
