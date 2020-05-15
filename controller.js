@@ -159,6 +159,39 @@ exports.user = function (req, res) {
     })
 };
 
+exports.userUpdate = function (req, res) {
+
+    var user_id = req.body.user_id
+    var username = req.body.username
+    var phone = req.body.phone
+    var email = req.body.email
+    var caption = req.body.caption
+
+    conn.getConnection(function (err, conn) {
+
+        conn.query('UPDATE tb_user SET username = ?, phone = ?, email = ?,caption = ?  WHERE user_id = ?',
+            [username, phone, email, caption, user_id]
+            , function (error, rows, fields) {
+
+                if (error) return response.err("Request timed out / No internet access", error)
+
+                if (rows.affectedRows) {
+
+                    response.ok("Success Update",res)
+
+                } else {
+
+                    response.err("Fialed updating user data")
+
+                }
+
+                conn.release()
+
+            })
+
+    })
+
+};
 
 /**
  * get article
@@ -172,17 +205,17 @@ exports.article = function (req, res) {
         if (articleId !== undefined) {
 
             conn.query('SELECT * FROM tb_article WHERE article_id = ?',
-            [articleId]
-            ,function (error, rows, fields) {
-                if (error) {
-                    console.log(error)
-                } else {
-                    res.json(rows[0])
-                    res.end()
-                }
-                conn.release()
+                [articleId]
+                , function (error, rows, fields) {
+                    if (error) {
+                        console.log(error)
+                    } else {
+                        res.json(rows[0])
+                        res.end()
+                    }
+                    conn.release()
 
-            });
+                });
 
         } else {
 
