@@ -350,6 +350,35 @@ exports.articleUpdate = function (req, res) {
 
 }
 
+exports.articleSearch = function (req, res) {
+
+    var search = req.body.search
+
+    var dynamicInput = '%'.concat(search.concat('%'));
+
+    console.log(dynamicInput)
+
+    conn.getConnection(function (err, conn) {
+
+        conn.query('SELECT * FROM tb_article WHERE title LIKE ?',
+            [dynamicInput]
+            , function (error, rows, fields) {
+
+                if (error) {
+                    response.err("Failed update article " + error, res)
+                } else {
+                    res.json(rows)
+                    res.end()
+                }
+
+                conn.release()
+
+            })
+
+    })
+
+}
+
 // 
 // index
 // 

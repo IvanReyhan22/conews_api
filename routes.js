@@ -28,4 +28,6 @@ module.exports = function (app) {
         .post(conews.createArticle);
     app.route('/article/update')
         .post(conews.articleUpdate);
+    app.route('/article/search')
+        .post(conews.articleSearch);
 };
