@@ -27,5 +27,5 @@ module.exports = function (app) {
     app.route('/article/create')
         .post(conews.createArticle);
     app.route('/article/update')
-        .post(conews.ArticleUpdate);
+        .post(conews.articleUpdate);
 };

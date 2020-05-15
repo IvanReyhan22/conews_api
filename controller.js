@@ -177,7 +177,7 @@ exports.userUpdate = function (req, res) {
 
                 if (rows.affectedRows) {
 
-                    response.ok("Success Update",res)
+                    response.ok("Success Update", res)
 
                 } else {
 
@@ -289,6 +289,65 @@ exports.createArticle = function (req, res) {
         }
 
     })
+}
+
+exports.articleUpdate = function (req, res) {
+
+    upload(req, res, err => {
+
+        var article_id = req.body.article_id
+        var title = req.body.title
+        var article_image = req.file.filename
+        var date = dateTimeStamp
+        var description = req.body.description
+        var category = req.body.category === undefined ? "daily" : req.body.category
+
+        if (req.file !== undefined) {
+
+            conn.getConnection(function (err, conn) {
+
+                conn.query('UPDATE tb_article SET image = ?, title = ?, date = ?, description = ?, category = ? WHERE article_id = ?',
+                    [article_image, title, date, description, category, article_id]
+                    , function (error, rows, fields) {
+
+                        if (error) response.err("Failed update article " + error, res)
+
+                        if (rows.affectedRows && rows.insertId) {
+
+                            response.ok("Success update article", res)
+                        }
+
+                        conn.release()
+
+                    })
+
+            })
+
+        } else {
+
+            conn.getConnection(function (err, conn) {
+
+                conn.query('UPDATE tb_article SET title = ?, date = ?, description = ?, category = ? WHERE article_id = ?',
+                    [title, date, description, category, article_id]
+                    , function (error, rows, fields) {
+
+                        if (error) response.err("Failed create article " + error, res)
+
+                        if (rows.affectedRows && rows.insertId) {
+
+                            response.ok("Success create article", res)
+                        }
+
+                        conn.release()
+
+                    })
+
+            })
+
+        }
+
+    })
+
 }
 
 // 
