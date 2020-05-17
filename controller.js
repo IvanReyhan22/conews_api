@@ -260,7 +260,7 @@ exports.articleHot = function (req, res) {
 /**
  * Article Daily News
  */
-exports.articleHot = function (req, res) {
+exports.articleDaily = function (req, res) {
 
     conn.getConnection(function (err, conn) {
 
