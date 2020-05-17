@@ -24,6 +24,8 @@ module.exports = function (app) {
         .get(conews.article);
     app.route('/articleById')
         .post(conews.article);
+    app.route('/article/hot')
+        .get(conews.articleHot);
     app.route('/article/create')
         .post(conews.createArticle);
     app.route('/article/update')
