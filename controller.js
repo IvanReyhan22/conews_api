@@ -258,6 +258,27 @@ exports.articleHot = function (req, res) {
 };
 
 /**
+ * Article Daily News
+ */
+exports.articleHot = function (req, res) {
+
+    conn.getConnection(function (err, conn) {
+
+        conn.query('SELECT * FROM tb_article WHERE category = "daily" ', function (error, rows, fields) {
+                if (error) {
+                    console.log(error)
+                } else {
+                    res.json(rows)
+                    res.end()
+                }
+                conn.release()
+
+            });
+
+    })
+};
+
+/**
  * create Article
  */
 exports.createArticle = function (req, res) {

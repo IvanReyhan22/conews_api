@@ -26,6 +26,8 @@ module.exports = function (app) {
         .post(conews.article);
     app.route('/article/hot')
         .get(conews.articleHot);
+    app.route('/article/daily')
+        .get(conews.articleDaily);
     app.route('/article/create')
         .post(conews.createArticle);
     app.route('/article/update')
