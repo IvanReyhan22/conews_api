@@ -5,7 +5,7 @@ var database = "w2NUkoaNPK"
 var db_config = {
     host: "remotemysql.com",
     user: "w2NUkoaNPK",
-    password: "20mBA2bR4T",
+    password: "V1rj7vWgDS",
     database: database
 }
 
